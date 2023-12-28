@@ -1,6 +1,6 @@
 "use client"
 
-import { encryptFile } from "@/utils/aes-gcm"
+import { decryptFile, encryptFile } from "@/utils/aes-gcm"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -36,14 +36,15 @@ export function EncryptForm({ type }: { type: AesType }) {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    if (type === "encrypt") {
-      const encryptedMessage = await encryptFile(values.file, values.key)
-      const blob = new Blob([encryptedMessage], {
-        type: "application/octet-stream",
-      })
-      const file = new File([blob], values.file.name)
-      downloadFile(URL.createObjectURL(file), values.file.name)
-    }
+    const encryptedMessage =
+      type === "encrypt"
+        ? await encryptFile(values.file, values.key)
+        : await decryptFile(values.file, values.key)
+    const blob = new Blob([encryptedMessage], {
+      type: "application/octet-stream",
+    })
+    const file = new File([blob], values.file.name)
+    downloadFile(URL.createObjectURL(file), values.file.name)
   }
 
   return (
