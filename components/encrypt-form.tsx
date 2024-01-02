@@ -103,7 +103,10 @@ export function EncryptForm({ action }: { action: AesActionType }) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="flex items-center gap-2">
+        <Button
+          type="submit"
+          className="flex w-full items-center gap-2 sm:w-fit"
+        >
           {buttonMessage[action]}
           <Download size={16} strokeWidth={3} />
         </Button>

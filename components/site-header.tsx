@@ -4,16 +4,22 @@ import { Fingerprint } from "lucide-react"
 export default function SiteHeader() {
   return (
     <header className="border-border/40 bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
-      <div className="container flex h-14  items-center justify-between">
+      <div className="container flex h-14 items-center justify-between">
         <nav className="flex gap-8">
           <Link href="#" className="flex items-center gap-2 font-bold">
             <Fingerprint size={24} />
             AES.GCM
           </Link>
-          <Link href="#encryption" className="text-foreground/60 text-sm">
+          <Link
+            href="#encryption"
+            className="text-foreground/60 hidden text-sm sm:block"
+          >
             Encryption
           </Link>
-          <Link href="#decryption" className="text-foreground/60 text-sm">
+          <Link
+            href="#decryption"
+            className="text-foreground/60 hidden text-sm sm:block"
+          >
             Decryption
           </Link>
         </nav>
