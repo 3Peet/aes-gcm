@@ -7,6 +7,8 @@ import SiteHeader from "@/components/site-header"
 
 import "./globals.css"
 
+import { ThemeProvider } from "@/components/theme-provider"
+
 export const metadata: Metadata = {
   title: "AES GCM Encrypt and Decrypt file online",
   description:
@@ -21,9 +23,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body>
-        <SiteHeader />
-        {children}
-        <Toaster richColors />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SiteHeader />
+          {children}
+          <Toaster richColors />
+        </ThemeProvider>
       </body>
     </html>
   )
