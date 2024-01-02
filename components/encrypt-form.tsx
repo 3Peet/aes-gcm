@@ -22,7 +22,10 @@ type AesActionType = "encrypt" | "decrypt"
 
 const formSchema = z.object({
   file: z.instanceof(File),
-  key: z.string({}),
+  key: z.string({
+    required_error:
+      "Please enter a strong key. This field cannot be left empty.",
+  }),
 })
 
 const downloadFile = (filePath: string, name: string) => {
@@ -54,7 +57,7 @@ export function EncryptForm({ action }: { action: AesActionType }) {
       })
       downloadFile(URL.createObjectURL(blob), file.name)
     } catch (error) {
-      toast.error(`Can not ${action}`, {
+      toast.error(`Can not ${action} file`, {
         description:
           typeof error === "object"
             ? error?.toString()
