@@ -14,9 +14,8 @@ async function getCryptoKey(key: string) {
 
 export async function encryptFile(file: File, keyStr: string) {
   const fileBuffer = await file.arrayBuffer()
-  const aesKey = await getCryptoKey(keyStr)
-  // The iv must never be reused with a given key.
-  const iv = window.crypto.getRandomValues(new Uint8Array(IV_LENGTH))
+  const aesKey = await getCryptoKey(keyStr) // Convert key string to cryptoKey format.
+  const iv = window.crypto.getRandomValues(new Uint8Array(IV_LENGTH)) // Generate a random IV (Initialization Vector)
   const encrypted = await window.crypto.subtle.encrypt(
     {
       name: "AES-GCM",
@@ -25,13 +24,18 @@ export async function encryptFile(file: File, keyStr: string) {
     aesKey,
     fileBuffer,
   )
-  return encrypted
+
+  // Combine IV and ciphertext into a single ArrayBuffer.
+  const result = new Uint8Array(iv.length + encrypted.byteLength)
+  result.set(iv, 0)
+  result.set(new Uint8Array(encrypted), iv.length)
+
+  return result.buffer
 }
 
 export async function decryptFile(file: File, keyStr: string) {
   const fileBuffer = await file.arrayBuffer()
   const aesKey = await getCryptoKey(keyStr) // Convert key string to cryptoKey format.
-
   const iv = fileBuffer.slice(0, IV_LENGTH)
   const ciphertext = fileBuffer.slice(IV_LENGTH)
   const decrypted = await window.crypto.subtle.decrypt(

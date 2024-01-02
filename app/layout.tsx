@@ -3,10 +3,9 @@ import { GeistMono } from "geist/font/mono"
 import { GeistSans } from "geist/font/sans"
 
 import { Toaster } from "@/components/ui/sonner"
+import SiteHeader from "@/components/site-header"
 
 import "./globals.css"
-
-import SiteHeader from "@/components/site-header"
 
 export const metadata: Metadata = {
   title: "AES-GEM Tools",
