@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import { GeistMono } from "geist/font/mono"
 import { GeistSans } from "geist/font/sans"
 
+import { Toaster } from "@/components/ui/sonner"
+
 import "./globals.css"
 
 import SiteHeader from "@/components/site-header"
@@ -21,6 +23,7 @@ export default function RootLayout({
       <body>
         <SiteHeader />
         {children}
+        <Toaster richColors />
       </body>
     </html>
   )

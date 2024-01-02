@@ -2,7 +2,9 @@
 
 import { decryptFile, encryptFile } from "@/utils/aes-gcm"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Download } from "lucide-react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
@@ -16,6 +18,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
+type AesActionType = "encrypt" | "decrypt"
+
 const formSchema = z.object({
   file: z.instanceof(File),
   key: z.string({}),
@@ -28,23 +32,35 @@ const downloadFile = (filePath: string, name: string) => {
   link.click()
 }
 
-type AesType = "encrypt" | "decrypt"
+const buttonMessage = {
+  encrypt: "Encrypt",
+  decrypt: "Decrypt",
+}
 
-export function EncryptForm({ type }: { type: AesType }) {
+export function EncryptForm({ action }: { action: AesActionType }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   })
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    const encryptedMessage =
-      type === "encrypt"
-        ? await encryptFile(values.file, values.key)
-        : await decryptFile(values.file, values.key)
-    const blob = new Blob([encryptedMessage], {
-      type: "application/octet-stream",
-    })
-    const file = new File([blob], values.file.name)
-    downloadFile(URL.createObjectURL(file), values.file.name)
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const { file, key } = values
+      const encryptedMessage =
+        action === "encrypt"
+          ? await encryptFile(file, key)
+          : await decryptFile(file, key)
+      const blob = new Blob([new Uint8Array(encryptedMessage)], {
+        type: file.type,
+      })
+      downloadFile(URL.createObjectURL(blob), file.name)
+    } catch (error) {
+      toast.error(`Can not ${action}`, {
+        description:
+          typeof error === "object"
+            ? error?.toString()
+            : "Something went wrong",
+      })
+    }
   }
 
   return (
@@ -84,7 +100,10 @@ export function EncryptForm({ type }: { type: AesType }) {
             </FormItem>
           )}
         />
-        <Button type="submit">{`${type} & download`}</Button>
+        <Button type="submit" className="flex items-center gap-2">
+          {buttonMessage[action]}
+          <Download size={16} strokeWidth={3} />
+        </Button>
       </form>
     </Form>
   )

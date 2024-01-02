@@ -32,7 +32,7 @@ export default function Home() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <EncryptForm type="encrypt" />
+            <EncryptForm action="encrypt" />
           </CardContent>
         </Card>
         <Card>
@@ -46,7 +46,7 @@ export default function Home() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <EncryptForm type="decrypt" />
+            <EncryptForm action="decrypt" />
           </CardContent>
         </Card>
       </div>
