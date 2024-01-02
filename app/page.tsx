@@ -9,7 +9,7 @@ import { EncryptForm } from "@/components/encrypt-form"
 
 export default function Home() {
   return (
-    <main className="container max-w-[960px] py-20">
+    <main className="container max-w-[960px] py-10 sm:py-20">
       <section className="mx-auto mb-20 flex flex-col gap-4 text-center">
         <h1 className="text-center text-3xl font-bold leading-tight tracking-tighter md:text-6xl lg:leading-[1.1]">
           Encrypt and Decrypt file online
