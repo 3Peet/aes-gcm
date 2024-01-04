@@ -2,7 +2,7 @@
 
 import { decryptFile, encryptFile } from "@/utils/aes-gcm"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Download } from "lucide-react"
+import { DicesIcon, Download } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
@@ -66,6 +66,19 @@ export function EncryptForm({ action }: { action: AesActionType }) {
     }
   }
 
+  const onRandomKey = () => {
+    // Generate an array of 32 random bytes (256 bits)
+    const randomBytes = new Uint8Array(32)
+    window.crypto.getRandomValues(randomBytes)
+
+    // Convert the array to a base64-encoded string
+    const base64Key = window.btoa(
+      String.fromCharCode.apply(null, Array.from(randomBytes)),
+    )
+
+    form.setValue("key", base64Key)
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -77,7 +90,6 @@ export function EncryptForm({ action }: { action: AesActionType }) {
               <FormLabel>File</FormLabel>
               <FormControl>
                 <Input
-                  id="file"
                   type="file"
                   onChange={(e) =>
                     onChange(e.target.files ? e.target.files[0] : null)
@@ -95,7 +107,21 @@ export function EncryptForm({ action }: { action: AesActionType }) {
           name="key"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Key</FormLabel>
+              <FormLabel>
+                <div className="flex justify-between">
+                  <span>Key</span>
+                  {action === "encrypt" && (
+                    <Button
+                      className="flex h-fit gap-1 p-0"
+                      variant="link"
+                      type="button"
+                      onClick={onRandomKey}
+                    >
+                      <DicesIcon size={20} />
+                    </Button>
+                  )}
+                </div>
+              </FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
