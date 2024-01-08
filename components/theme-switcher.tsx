@@ -14,6 +14,7 @@ export default function ThemeSwitcher() {
         onClick={() => setTheme("dark")}
         className="block px-2 dark:hidden"
         variant="ghost"
+        aria-label="light switcher"
       >
         <SunIcon size={20} />
       </Button>
@@ -21,6 +22,7 @@ export default function ThemeSwitcher() {
         onClick={() => setTheme("light")}
         className="hidden px-2 dark:block"
         variant="ghost"
+        aria-label="dark switcher"
       >
         <MoonIcon size={20} />
       </Button>

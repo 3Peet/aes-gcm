@@ -116,6 +116,7 @@ export function EncryptForm({ action }: { action: AesActionType }) {
                       variant="link"
                       type="button"
                       onClick={onRandomKey}
+                      aria-label="random key icon"
                     >
                       <DicesIcon size={20} />
                     </Button>

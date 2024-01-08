@@ -14,11 +14,11 @@ export default function Home() {
         <h1 className="text-center text-3xl font-bold leading-tight tracking-tighter md:text-6xl lg:leading-[1.1]">
           Encrypt and Decrypt file online
         </h1>
-        <span className="text-muted-foreground">
+        <h2 className="text-muted-foreground">
           A free online tool for encryption and decryption of any file instantly
           with the AES 256 GCM algorithm also allows you to download your
           securely encrypted files effortlessly.
-        </span>
+        </h2>
       </section>
       <div className="space-y-12">
         <Card>

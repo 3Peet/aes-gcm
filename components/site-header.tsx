@@ -31,6 +31,7 @@ export default function SiteHeader() {
             href="https://github.com/3Peet/aes-gcm"
             className="text-primary h-5 w-5"
             target="_blank"
+            aria-label="github icon"
           >
             <svg viewBox="0 0 438.549 438.549">
               <path
