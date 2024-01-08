@@ -19,7 +19,7 @@ export const metadata: Metadata = {
       "A free online tool for encryption and decryption of any file instantly with the AES 256 GCM algorithm also allows you to download your securely encrypted files effortlessly.",
     url: "https://aes-gcm.vercel.app/",
     siteName: "aes-gcm.vercel.app",
-    images: "/og-image.png",
+    images: "https://aes-gcm.vercel.app/og-image.png",
     type: "website",
   },
 }
