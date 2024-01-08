@@ -13,6 +13,15 @@ export const metadata: Metadata = {
   title: "AES GCM Encrypt and Decrypt file online",
   description:
     "A free online tool for encryption and decryption of any file instantly with the AES 256 GCM algorithm also allows you to download your securely encrypted files effortlessly.",
+  openGraph: {
+    title: "AES GCM Encrypt and Decrypt file online",
+    description:
+      "A free online tool for encryption and decryption of any file instantly with the AES 256 GCM algorithm also allows you to download your securely encrypted files effortlessly.",
+    url: "https://aes-gcm.vercel.app/",
+    siteName: "aes-gcm.vercel.app",
+    images: "/og-image.png",
+    type: "website",
+  },
 }
 
 export default function RootLayout({
